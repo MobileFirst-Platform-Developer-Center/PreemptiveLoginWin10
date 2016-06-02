@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Copyright 2016 IBM Corp.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,7 @@ using Worklight;
 
 namespace PreemptiveLoginWin10
 {
-    class PreemptiveLoginChallengeHandler : Worklight.WorklightChallengeHandler
+    class PreemptiveLoginChallengeHandler : Worklight.SecurityCheckChallengeHandler
     {
         public JObject challengeAnswer { get; set; }
 
@@ -67,18 +67,9 @@ namespace PreemptiveLoginWin10
             waitForPincode.WaitOne();
         }
 
-        public override bool ShouldSubmitFailure()
+        public override bool ShouldCancel()
         {
             return shouldsubmitfailure;
-        }
-
-        public override WorklightResponse GetSubmitFailureResponse()
-        {
-            JObject respJSON = new JObject();
-            respJSON.Add("Respose", "Cancelled Request");
-
-            WorklightResponse response = new WorklightResponse(false, "User cancelled the request", respJSON, "User cancelled the request", (int)HttpStatusCode.InternalServerError);
-            return response;
         }
 
         public async void login(JObject credentials)
