@@ -149,7 +149,7 @@ namespace PreemptiveLoginWin10
 
         }
 
-        public override void SubmitChallengeAnswer(object answer)
+        public void SubmitChallengeAnswer(object answer)
         {
             challengeAnswer = (JObject)answer;
         }
